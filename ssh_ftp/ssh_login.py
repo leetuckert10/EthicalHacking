@@ -8,7 +8,8 @@ import subprocess
 from termcolor import colored
 
 
-# PROMPT = '$ '
+"""Automating ssh login"""
+
 PROMPT = ['\$ ', '# ', '> ', '>> ', '>>> ']
 
 def lineno():
@@ -62,10 +63,11 @@ def send_command(child, command):
 def main():
     subprocess.call('clear', shell=True)
 
-    host = "192.168.1.44"
-    user = "msfadmin"
-    pawd = "msfadmin"
+    host = input(colored("Enter the host IP address: ", 'yellow'))
+    user = input(colored("Enter the user name: ", 'yellow'))
+    pawd = input(colored("Enter the user password: ", 'yellow'))
     cmnd = "cat /etc/shadow | grep -v grep | grep root"
+    cmnd = 'ps uwax'
 
     child = login(host, user, pawd)
     send_command(child, cmnd)
