@@ -12,8 +12,9 @@ from urllib.request import urlopen
 """Program: sha1_pw_crack.py
 
 This program demstrates how to use a password hash value to search through a
-very large list of common passwords, converting thime to SHA! and checking if
-the hash value you entered is found. There is some very good stuff in here.
+very large list of common passwords, converting thime to a SHA1 hash and
+checking if the hash value you entered is found. There is some very good stuff
+in here.
 
 One important thing is the dynamic download of an internet file using the urllib
 library.

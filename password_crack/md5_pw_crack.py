@@ -12,11 +12,9 @@ from urllib.request import urlopen
 """Program: md5_pw_crack.py
 
 This program demonstrates how to use a password hash value to search through a
-very large list of common passwords, converting thime to SHA! and checking if
-the hash value you entered is found. There is some very good stuff in here.
-
-One important thing is the dynamic download of an internet file using the urllib
-library.
+very list of common passwords. The user enters a MD5 hash value and we try and
+find that same hash value in the file by converting the passwords there to their
+MD5 hash value.
 
 """
 
@@ -32,15 +30,16 @@ def read_file(hash_str, pwd_file):
                 password = password.strip()
                 print(colored(f"Trying {password}", 'yellow'))
                 hash_val = hashlib.md5()    # MD5 hash object
-                hash_val.update(password.encode('utf-8')    # update hash object
+                hash_val.update(password.encode('utf-8'))   # update hash object
                 if hash_val.hexdigest() == hash_str:
-                    print(colored(f"MD5 hash, {hash_str}, is the password, '{pwd}'",
+                    print(colored(f"MD5 hash, {hash_str}, is the password, '{password}'",
                             'green'))
                     found = True
                     break
-        return found
     except Exception as e:
         print(colored(f"{e}", 'red'))
+
+    return found
 
 
 def main():
@@ -49,17 +48,10 @@ def main():
     hash_str = input(colored("Enter a MD5 hash value: ", 'yellow'))
     pwd_file = input(colored("Enter password file name: ", 'yellow'))
 
-    found = False
-    for pwd in pwd_list.split():
-        hash_val = hashlib.sha1()
-        hash_val.update(pwd.encode())
-        if hash_val.hexdigest() == hash_str:
-            print(colored(f"SHA1 hash, {hash_str}, is the password, '{pwd}'", 'green'))
-            found = True
-            break
+    found = read_file(hash_str=hash_str, pwd_file=pwd_file)
 
     if not found:
-        print(colored(f"SHA1 hash, {hash_str}, was not found in the password file",
+        print(colored(f"MD5 hash, {hash_str}, was not found in the password file",
                 'red'))
 
 
