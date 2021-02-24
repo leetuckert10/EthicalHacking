@@ -1,0 +1,11 @@
+# macchanger is a program for modifying your mac address.
+macchanger -s eth0
+
+# Bring eth0 down
+ifconfig eth0 down
+
+# Bring eth0 up
+ifconfig eth0 up
+
+# Changing the mac address with ifconfig
+ifconfig eth0 hw ether aa:bb:cc:dd:ee:ff
