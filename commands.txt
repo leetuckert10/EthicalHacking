@@ -18,3 +18,7 @@ ls(ARP)
 # Type of arp pack specified by in op field:
 op=1    # request
 op=2    # reply
+
+# Turn on packet forwarding
+cat /proc/sys/net/ipv4/ip_forard
+echo 1 > /proc/sys/net/ipv4/ip_forard
