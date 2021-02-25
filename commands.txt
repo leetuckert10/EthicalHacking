@@ -9,3 +9,12 @@ ifconfig eth0 up
 
 # Changing the mac address with ifconfig
 ifconfig eth0 hw ether aa:bb:cc:dd:ee:ff
+
+# ARP commands
+arp -a
+
+# scapy commands
+ls(ARP)
+# Type of arp pack specified by in op field:
+op=1    # request
+op=2    # reply
