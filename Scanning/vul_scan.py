@@ -4,22 +4,22 @@ import os
 import sys
 import subprocess
 from termcolor import colored
-import socket as s
+import socket as sock
 
 
 def get_banner(ip, port):
     s.setdefaulttimeout(2)
     banner = None
     try:
-        sock = s.socket(s.AF_INET, s.SOCK_STREAM)
+        s = sock.socket(s.AF_INET, s.SOCK_STREAM)
         address = (ip, port)
 
-        sock.connect(address)
-        banner = sock.recv(1024)
+        s.connect(address)
+        banner = s.recv(1024)
     except s.error as e:
         print(colored(f"{ip}=>{port}:: {e}", 'red'))
     finally:
-        sock.close()
+        s.close()
     return banner
 
 
@@ -71,4 +71,5 @@ def main():
                 check_vulnerability(banner, filename)
 
 
-main()
+if __name__ == "__main__":
+    main()
